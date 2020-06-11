@@ -2,28 +2,28 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import TodoContainer from "../../components/TodoContainer";
-import { TodoActions } from "../../store/todo/types";
+import { fetchTodos } from "../../services/todosService";
+import { CircularProgress } from "@material-ui/core";
 
 export default function Home() {
-  const todoState = useSelector((state: RootState) => state.todo);
+  const { todos, isLoading, error } = useSelector(
+    (state: RootState) => state.todo
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => response.json())
-      .then((data) => {
-        dispatch({
-          type: TodoActions.SET_TODOS,
-          payload: data,
-        });
-      });
+    dispatch(fetchTodos());
   }, [dispatch]);
 
+  if (isLoading) return <CircularProgress />;
+
+  if (error) console.log(error);
+
   return (
-    <div>
-      {todoState.todos.map((todo) => (
+    <>
+      {todos.map((todo) => (
         <TodoContainer key={todo.id} todo={todo} />
       ))}
-    </div>
+    </>
   );
 }

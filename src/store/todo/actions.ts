@@ -1,22 +1,28 @@
 import { Todo, TodoActions, TodoActionTypes } from "./types";
 
-export function createTodo(newTodo: Todo): TodoActionTypes {
+export function fetchTodosBegin(): TodoActionTypes {
   return {
-    type: TodoActions.CREATE_TODO,
-    payload: newTodo,
+    type: TodoActions.FETCH_TODOS_BEGIN,
   };
 }
 
-export function setTodos(todos: Todo[]): TodoActionTypes {
+export function fetchTodosSuccess(todos: Todo[]): TodoActionTypes {
   return {
-    type: TodoActions.SET_TODOS,
+    type: TodoActions.FETCH_TODOS_SUCCESS,
     payload: todos,
   };
 }
 
-export function changeCompleted(id: number): TodoActionTypes {
+export function onTodoFailure(error: any): TodoActionTypes {
   return {
-    type: TodoActions.CHANGE_COMPLETED,
-    payload: id,
+    type: TodoActions.ON_TODO_FAILURE,
+    payload: error,
+  };
+}
+
+export function updateTodo(todo: Todo): TodoActionTypes {
+  return {
+    type: TodoActions.UPDATE_TODO,
+    payload: todo,
   };
 }

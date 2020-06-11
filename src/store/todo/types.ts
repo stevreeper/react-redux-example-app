@@ -7,31 +7,39 @@ export interface Todo {
 //State
 export interface TodoState {
   todos: Todo[];
+  isLoading: boolean;
+  error: any;
 }
 
 //Acions Types
 export enum TodoActions {
-  CREATE_TODO,
-  SET_TODOS,
-  CHANGE_COMPLETED,
+  FETCH_TODOS_BEGIN,
+  FETCH_TODOS_SUCCESS,
+  UPDATE_TODO,
+  ON_TODO_FAILURE,
 }
 
-interface CreateTodoAction {
-  type: typeof TodoActions.CREATE_TODO;
+interface updateTodo {
+  type: typeof TodoActions.UPDATE_TODO;
   payload: Todo;
 }
 
-interface SetTodosAction {
-  type: typeof TodoActions.SET_TODOS;
+interface fetchTodosBegin {
+  type: typeof TodoActions.FETCH_TODOS_BEGIN;
+}
+
+interface fetchTodosSuccess {
+  type: typeof TodoActions.FETCH_TODOS_SUCCESS;
   payload: Todo[];
 }
 
-interface ChangeCompletedAction {
-  type: typeof TodoActions.CHANGE_COMPLETED;
-  payload: number;
+interface onTodoFailure {
+  type: typeof TodoActions.ON_TODO_FAILURE;
+  payload: any;
 }
 
 export type TodoActionTypes =
-  | CreateTodoAction
-  | SetTodosAction
-  | ChangeCompletedAction;
+  | fetchTodosBegin
+  | fetchTodosSuccess
+  | onTodoFailure
+  | updateTodo;

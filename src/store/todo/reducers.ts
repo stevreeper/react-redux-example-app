@@ -1,13 +1,9 @@
 import { TodoState, TodoActionTypes, TodoActions } from "./types";
 
 const initialState: TodoState = {
-  todos: [
-    {
-      id: 1,
-      title: "hey",
-      completed: false,
-    },
-  ],
+  todos: [],
+  isLoading: true,
+  error: null,
 };
 
 export function todoReducer(
@@ -15,16 +11,30 @@ export function todoReducer(
   action: TodoActionTypes
 ): TodoState {
   switch (action.type) {
-    case TodoActions.SET_TODOS:
+    case TodoActions.FETCH_TODOS_BEGIN:
       return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case TodoActions.FETCH_TODOS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
         todos: action.payload,
       };
-    case TodoActions.CHANGE_COMPLETED:
+    case TodoActions.ON_TODO_FAILURE:
       return {
-        todos: state.todos.map((todo) => {
-          if (todo.id === action.payload) todo.completed = !todo.completed;
-          return todo;
-        }),
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case TodoActions.UPDATE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.id ? action.payload : todo
+        ),
       };
     default:
       return state;
