@@ -11,7 +11,7 @@ export function todoReducer(
   action: TodoActionTypes
 ): TodoState {
   switch (action.type) {
-    case TodoActions.FETCH_TODOS_BEGIN:
+    case TodoActions.FETCH_TODOS:
       return {
         ...state,
         isLoading: true,

@@ -13,10 +13,10 @@ export interface TodoState {
 
 //Acions Types
 export enum TodoActions {
-  FETCH_TODOS_BEGIN,
-  FETCH_TODOS_SUCCESS,
-  UPDATE_TODO,
-  ON_TODO_FAILURE,
+  FETCH_TODOS = "FETCH_TODOS",
+  FETCH_TODOS_SUCCESS = "FETCH_TODOS_SUCCESS",
+  UPDATE_TODO = "UPDATE_TODO",
+  ON_TODO_FAILURE = "ON_TODO_FAILURE",
 }
 
 interface updateTodo {
@@ -24,8 +24,8 @@ interface updateTodo {
   payload: Todo;
 }
 
-interface fetchTodosBegin {
-  type: typeof TodoActions.FETCH_TODOS_BEGIN;
+interface fetchTodos {
+  type: typeof TodoActions.FETCH_TODOS;
 }
 
 interface fetchTodosSuccess {
@@ -39,7 +39,7 @@ interface onTodoFailure {
 }
 
 export type TodoActionTypes =
-  | fetchTodosBegin
+  | fetchTodos
   | fetchTodosSuccess
   | onTodoFailure
   | updateTodo;

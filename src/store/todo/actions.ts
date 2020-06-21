@@ -1,8 +1,8 @@
 import { Todo, TodoActions, TodoActionTypes } from "./types";
 
-export function fetchTodosBegin(): TodoActionTypes {
+export function fetchTodos(): TodoActionTypes {
   return {
-    type: TodoActions.FETCH_TODOS_BEGIN,
+    type: TodoActions.FETCH_TODOS,
   };
 }
 
