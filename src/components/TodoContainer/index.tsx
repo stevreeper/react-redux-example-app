@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./styles.css";
 import { Todo, TodoActions } from "../../store/todo/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Checkbox } from "@material-ui/core";
+import { Container, Label } from "./styles";
 
 interface TodoContainerProps {
   todo: Todo;
@@ -24,19 +24,16 @@ const TodoContainer: React.FC<TodoContainerProps> = ({ todo }) => {
   if (error) console.log(error);
 
   return (
-    <div className="container-todo">
+    <Container>
       <Checkbox
         checked={todo.completed}
         onChange={handleCheck}
         id={String(todo.id)}
       />
-      <label
-        htmlFor={String(todo.id)}
-        className={todo.completed ? "completed-todo" : ""}
-      >
+      <Label htmlFor={String(todo.id)} isCompleted={todo.completed}>
         {todo.title}
-      </label>
-    </div>
+      </Label>
+    </Container>
   );
 };
 
