@@ -1,12 +1,12 @@
-import { todoReducer } from "./todo/reducers";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import createSagaMiddleWare from "redux-saga";
 import { rootSaga } from "./sagas";
+import { TodoReducer } from "./todo";
 
 const sagaMiddleware = createSagaMiddleWare();
 
 const rootReducer = combineReducers({
-  todo: todoReducer,
+  todo: TodoReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 import api from "../../services/api";
-import { fetchTodosSuccess, onTodoFailure } from "../todo/actions";
+import { Creators } from "./reducer";
 
 export function* fetchTodos() {
   try {
@@ -9,8 +9,8 @@ export function* fetchTodos() {
 
       return response.data;
     });
-    yield put(fetchTodosSuccess(todos));
+    yield put(Creators.fetchTodosSuccess(todos));
   } catch (e) {
-    yield put(onTodoFailure(e));
+    yield put(Creators.fetchTodosFailure(e));
   }
 }

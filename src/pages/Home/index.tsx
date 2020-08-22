@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import TodoContainer from "../../components/TodoContainer";
 import { CircularProgress } from "@material-ui/core";
-import { fetchTodos } from "../../store/todo/actions";
-
+import { TodoCreators } from "../../store/todo";
 export default function Home() {
   const { todos, isLoading, error } = useSelector(
     (state: RootState) => state.todo
@@ -12,7 +11,7 @@ export default function Home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchTodos());
+    dispatch(TodoCreators.fetchTodos());
   }, [dispatch]);
 
   if (isLoading) return <CircularProgress />;

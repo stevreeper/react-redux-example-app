@@ -1,10 +1,11 @@
 import React from "react";
 
-import { Todo, TodoActions } from "../../store/todo/types";
+import { Todo } from "../../models/Todo";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { Checkbox } from "@material-ui/core";
 import { Container, Label } from "./styles";
+import { TodoCreators } from "../../store/todo";
 
 interface TodoContainerProps {
   todo: Todo;
@@ -15,10 +16,7 @@ const TodoContainer: React.FC<TodoContainerProps> = ({ todo }) => {
   const dispatch = useDispatch();
 
   function handleCheck() {
-    dispatch({
-      type: TodoActions.UPDATE_TODO,
-      payload: { ...todo, completed: !todo.completed },
-    });
+    dispatch(TodoCreators.updateTodo({ ...todo, completed: !todo.completed }));
   }
 
   if (error) console.log(error);

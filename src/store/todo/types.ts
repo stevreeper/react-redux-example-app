@@ -1,8 +1,5 @@
-export interface Todo {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { Todo } from "../../models/Todo";
+import { Action } from "redux";
 
 //State
 export interface TodoState {
@@ -11,35 +8,29 @@ export interface TodoState {
   error: any;
 }
 
+export interface FetchTodosSuccessAction {
+  todos: Todo[];
+}
+
+export interface FetchTodosFailureAction {
+  error: string;
+}
+
+export interface UpdateTodoAction {
+  todo: Todo;
+}
+
 //Acions Types
-export enum TodoActions {
-  FETCH_TODOS = "FETCH_TODOS",
-  FETCH_TODOS_SUCCESS = "FETCH_TODOS_SUCCESS",
-  UPDATE_TODO = "UPDATE_TODO",
-  ON_TODO_FAILURE = "ON_TODO_FAILURE",
+export interface TodoTypes {
+  FETCH_TODOS: "FETCH_TODOS";
+  FETCH_TODOS_SUCCESS: "FETCH_TODOS_SUCCESS";
+  FETCH_TODOS_FAILURE: "FETCH_TODOS_FAILURE";
+  UPDATE_TODO: "UPDATE_TODO";
 }
 
-interface updateTodo {
-  type: typeof TodoActions.UPDATE_TODO;
-  payload: Todo;
+export interface TodoActions {
+  fetchTodos(): Action<void>;
+  fetchTodosSuccess(todos: FetchTodosSuccessAction["todos"]): Action<void>;
+  fetchTodosFailure(error: FetchTodosFailureAction["error"]): Action<void>;
+  updateTodo(todo: UpdateTodoAction["todo"]): Action<void>;
 }
-
-interface fetchTodos {
-  type: typeof TodoActions.FETCH_TODOS;
-}
-
-interface fetchTodosSuccess {
-  type: typeof TodoActions.FETCH_TODOS_SUCCESS;
-  payload: Todo[];
-}
-
-interface onTodoFailure {
-  type: typeof TodoActions.ON_TODO_FAILURE;
-  payload: any;
-}
-
-export type TodoActionTypes =
-  | fetchTodos
-  | fetchTodosSuccess
-  | onTodoFailure
-  | updateTodo;
