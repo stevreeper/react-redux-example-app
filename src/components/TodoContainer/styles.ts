@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
   margin-bottom: 15px;
   background-color: rgb(235, 235, 235);
-  border-radius: 15px;
+  border-radius: 4px;
 `;
 
 export const Label = styled.label<{ isCompleted: boolean }>`

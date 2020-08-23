@@ -1,10 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store";
 import TodoContainer from "../../components/TodoContainer";
-import { CircularProgress } from "@material-ui/core";
+import {
+  CircularProgress,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
 import { TodoCreators } from "../../store/todo";
+import { Container } from "./styles";
+import { Check } from "@material-ui/icons";
+
 export default function Home() {
+  const addTodoRef = useRef<HTMLInputElement>();
+
   const { todos, isLoading, error } = useSelector(
     (state: RootState) => state.todo
   );
@@ -14,15 +24,43 @@ export default function Home() {
     dispatch(TodoCreators.fetchTodos());
   }, [dispatch]);
 
-  if (isLoading) return <CircularProgress />;
+  function handleAddTodo() {
+    if (addTodoRef.current?.value)
+      dispatch(TodoCreators.addTodo(addTodoRef.current.value));
+  }
+
+  if (isLoading)
+    return (
+      <Container className="loader">
+        <CircularProgress />
+      </Container>
+    );
 
   if (error) console.log(error);
 
   return (
-    <>
+    <Container>
+      <div className="add-container">
+        <TextField
+          inputRef={addTodoRef}
+          placeholder="Wash the dishes..."
+          label="New Todo"
+          fullWidth
+          variant="filled"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={handleAddTodo}>
+                  <Check />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
       {todos.map((todo) => (
         <TodoContainer key={todo.id} todo={todo} />
       ))}
-    </>
+    </Container>
   );
 }
